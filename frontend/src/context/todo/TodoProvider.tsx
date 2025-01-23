@@ -34,7 +34,9 @@ const TodoProvider = (props: any) => {
         setAuthToken(localStorage.token);
       }
       dispatch({ type: SET_TODO_LOADING });
-      const res = await axios.get(url + '/todos', { withCredentials: true });
+      
+      const res = await axios.get(url + '/todos');
+      console.log(res.data);
       dispatch({
         type: GET_TODOS,
         payload: res.data.todos,

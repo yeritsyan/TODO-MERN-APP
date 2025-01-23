@@ -38,6 +38,7 @@ const AuthProvider = (props: any) => {
     dispatch({ type: SET_LOADING });
     try {
       const res = await axios.get(url + '/user/auth');
+      
       dispatch({
         type: GET_USER,
         payload: res.data,

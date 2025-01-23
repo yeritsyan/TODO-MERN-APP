@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const TodoSchema = new mongoose.Schema({
   title: String,
@@ -8,7 +8,11 @@ const TodoSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
 });
 
-const Todo = mongoose.model('todos', TodoSchema);
+const Todo = mongoose.model("todos", TodoSchema);
 export default Todo;
