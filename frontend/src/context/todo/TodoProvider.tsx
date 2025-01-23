@@ -26,7 +26,8 @@ const TodoProvider = (props: any) => {
 
   const [state, dispatch] = useReducer(TodoReducer, initialState);
 
-  const url = import.meta.env.VITE_BACKEND_URL; //or 'http://localhost:3001';
+  //const url = import.meta.env.VITE_BACKEND_URL; //or 'http://localhost:3001';
+  const url = 'http://localhost:3001';
 
   const getTodos = async () => {
     try {
@@ -34,7 +35,7 @@ const TodoProvider = (props: any) => {
         setAuthToken(localStorage.token);
       }
       dispatch({ type: SET_TODO_LOADING });
-      const res = await axios.get(url + '/todos');
+      const res = await axios.get(url + '/todos', { withCredentials: true });
       dispatch({
         type: GET_TODOS,
         payload: res.data.todos,

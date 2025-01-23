@@ -1,12 +1,7 @@
-import User from '../models/user';
-import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { validate } from 'deep-email-validator';
-
-const isEmailValid = async (email: string) => {
-  return await validate(email);
-};
+import User from "../models/user";
+import { Request, Response } from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // User Routes
 const userSignup = async (req: Request, res: Response) => {
@@ -16,19 +11,12 @@ const userSignup = async (req: Request, res: Response) => {
   //checking if email already exists
   const existingUser = await User.findOne({ email });
   if (existingUser) {
-    res.status(400).json({ error: 'Email already exists' });
-    return;
-  }
-
-  //checking if email is valid
-  const { valid } = await isEmailValid(email);
-  if (!valid) {
-    res.status(400).json({ error: 'Invalid email' });
+    res.status(400).json({ error: "Email already exists" });
     return;
   }
 
   if (password.length < 6) {
-    res.status(400).json({ error: 'Password must be at least 6 characters' });
+    res.status(400).json({ error: "Password must be at least 6 characters" });
     return;
   }
 
@@ -36,7 +24,7 @@ const userSignup = async (req: Request, res: Response) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   //creating the user
   await User.create({ email, username, password: hashedPassword });
-  res.status(200).json({ message: 'User created successfully' });
+  res.status(200).json({ message: "User created successfully" });
 };
 
 const userSignin = async (req: Request, res: Response) => {
@@ -45,7 +33,7 @@ const userSignin = async (req: Request, res: Response) => {
 
   //checking if email already exists
   const user = await User.findOne({ email });
-  if (!user) return res.status(401).json({ error: 'User does not exist!' });
+  if (!user) return res.status(401).json({ error: "User does not exist!" });
   else {
     //checking if password is correct
     const passwordValidates = await bcrypt.compare(
@@ -56,7 +44,7 @@ const userSignin = async (req: Request, res: Response) => {
     if (passwordValidates) {
       const token = jwt.sign({ email }, process.env.JWT_SECRET as string);
       res.status(200).json({ token });
-    } else return res.status(401).json({ error: 'Wrong email or password' });
+    } else return res.status(401).json({ error: "Wrong email or password" });
   }
 };
 
@@ -69,10 +57,10 @@ const getUser = async (req: Request, res: Response) => {
         .status(200)
         .json({ email: req.body.email, username: user.username });
     } else {
-      return res.status(401).json({ error: 'Unauthorized' });
+      return res.status(401).json({ error: "Unauthorized" });
     }
   }
-  return res.status(401).json({ error: 'Unauthorized' });
+  return res.status(401).json({ error: "Unauthorized" });
 };
 
 export { userSignup, userSignin, getUser };
