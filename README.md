@@ -4,10 +4,6 @@ A simple TODO App just made a bit "FullStack". 🔨
 
 https://github.com/its-id/TODO-MERN-APP/assets/60315832/7fa469e5-07cc-4401-a936-fe12aeab7b49
 
-Dummy credentials to try out: <br/>
-**email: harkirat@gmail.com** <br/>
-**password: 123456**
-
 ## Basic Features
 
 - User can login and signup to save his/her todos.
@@ -44,7 +40,7 @@ Dummy credentials to try out: <br/>
 
 1. `cd frontend`
 2. `npm i`
-3. Go to `AuthProvider.tsx` and `TodoProvider.tsx`. Replace `import.meta.env.VITE_BACKEND_URL` with your Backend URL.
+3. Create the .env file containing the following data: URL backend. (check .env.example for the format)
 4. `npm run dev`
 
 ## Some Issues you can encounter
