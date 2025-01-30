@@ -1,7 +1,7 @@
 # Exported from Render on 2025-01-30T18:51:05Z
 services:
   - type: web
-    name: TODO-MERN-APP
+    name: TODO-MERN-APP-Backend
     runtime: node
     repo: https://github.com/yeritsyan/TODO-MERN-APP
     plan: free

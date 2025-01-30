@@ -1,7 +1,7 @@
 # Exported from Render on 2025-01-30T18:46:16Z
 services:
   - type: web
-    name: TODO-MERN-APP-1
+    name: TODO-MERN-APP-Frontend
     runtime: static
     repo: https://github.com/yeritsyan/TODO-MERN-APP
     envVars:
