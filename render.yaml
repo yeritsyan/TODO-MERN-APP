@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: TODO-MERN-APP-Frontend
+    runtime: static
+    repo: https://github.com/yeritsyan/TODO-MERN-APP
+    buildCommand: npm run build
+    staticPublishPath: dist
+    rootDir: frontend
+  - type: web
+    name: TODO-MERN-APP-Backend
+    runtime: node
+    repo: https://github.com/yeritsyan/TODO-MERN-APP
+    plan: free
+    region: frankfurt
+    buildCommand: npm run setup
+    startCommand: npm run start
+    rootDir: backend
+version: "1"
