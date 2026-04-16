@@ -1,25 +1,25 @@
-import { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
+import { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 //components imports
-import Button from '../common/Button';
-import Input from '../common/Input';
+import Button from "../common/Button";
+import Input from "../common/Input";
 
 //types imports
-import { User, UserState } from '../../types/user';
+import { User, UserState } from "../../types/user";
 
 //context imports
-import AuthContext from '../../context/auth/AuthContext';
+import AuthContext from "../../context/auth/AuthContext";
 
 const Signup = ({ context: path }: any) => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState<User>({
-    email: '',
-    password: '',
-    confirmPassword: '',
-    username: '',
+    email: "",
+    password: "",
+    confirmPassword: "",
+    username: "",
   });
   const [registering, setRegistering] = useState(false);
 
@@ -28,25 +28,25 @@ const Signup = ({ context: path }: any) => {
 
   const checkValid = () => {
     if (
-      user.email === '' ||
-      user.password === '' ||
-      user.confirmPassword === '' ||
-      user.username === ''
+      user.email === "" ||
+      user.password === "" ||
+      user.confirmPassword === "" ||
+      user.username === ""
     ) {
-      toast.error('Please fill all the fields', {
+      toast.error("Please fill all the fields", {
         style: {
-          background: '#333',
-          color: '#fff',
+          background: "#333",
+          color: "#fff",
         },
       });
       return false;
     }
 
     if (user.password !== user.confirmPassword) {
-      toast.error('Passwords do not match', {
+      toast.error("Passwords do not match", {
         style: {
-          background: '#333',
-          color: '#fff',
+          background: "#333",
+          color: "#fff",
         },
       });
       return false;
@@ -57,10 +57,10 @@ const Signup = ({ context: path }: any) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const loadingToast = toast.loading('Signing Up...', {
+    const loadingToast = toast.loading("Signing Up...", {
       style: {
-        background: '#333',
-        color: '#fff',
+        background: "#333",
+        color: "#fff",
       },
     });
     if (!checkValid()) {
@@ -78,13 +78,13 @@ const Signup = ({ context: path }: any) => {
         }));
 
       if (!error) {
-        toast.success('Signed Up Successfully', {
+        toast.success("Signed Up Successfully", {
           style: {
-            background: '#333',
-            color: '#fff',
+            background: "#333",
+            color: "#fff",
           },
         });
-        console.log('success', error);
+        console.log("success", error);
         toast.dismiss(loadingToast);
       }
     } catch (err: any) {
@@ -124,7 +124,7 @@ const Signup = ({ context: path }: any) => {
 
   useEffect(() => {
     if (isRegistered) {
-      navigate('/');
+      navigate("/");
     }
   }, [isRegistered, path]);
 
@@ -133,8 +133,8 @@ const Signup = ({ context: path }: any) => {
       setRegistering(false);
       toast.error(error, {
         style: {
-          background: '#333',
-          color: '#fff',
+          background: "#333",
+          color: "#fff",
         },
       });
       clearError && clearError();
@@ -143,101 +143,77 @@ const Signup = ({ context: path }: any) => {
 
   return (
     <>
-      <div className='min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8'>
-        <div className='sm:mx-auto sm:w-full sm:max-w-md'>
-          <h2 className='mt-6 text-center text-3xl font-bold text-slate-200'>
-            Sign UP to save your TODOs
-          </h2>
+      <div className="auth-page">
+        <div>
+          <h2>Sign UP to save your TODOs</h2>
         </div>
 
-        <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
-          <div className='bg-gray-600/50 py-8 px-4 shadow sm:rounded-lg sm:px-10'>
-            <div className='flex flex-col gap-6'>
+        <div className="auth-card">
+          <div className="flex flex-col gap-6">
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
               <div>
-                <label
-                  htmlFor='email'
-                  className='block text-sm font-medium text-slate-200'
-                >
-                  Username
-                </label>
-                <div className='mt-1'>
-                  <Input
-                    id='username'
-                    name='username'
-                    type='text'
-                    variant='dark'
-                    onChange={onInputChangeHandler}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor='email'
-                  className='block text-sm font-medium text-slate-200'
-                >
-                  Email address
-                </label>
-                <div className='mt-1'>
-                  <Input
-                    id='email'
-                    name='email'
-                    type='email'
-                    variant='dark'
-                    autoComplete='email'
-                    onChange={onInputChangeHandler}
-                  />
-                </div>
-              </div>
-              <p className='-mt-4 text-sm text-slate-400'>
-                Only accepting Gmail, Yahoo and Outlook emails
-              </p>
-
-              <div>
-                <label
-                  htmlFor='password'
-                  className='block text-sm font-medium text-gray-200'
-                >
-                  Password
-                </label>
-                <div className='mt-1'>
-                  <Input
-                    id='password'
-                    name='password'
-                    type='password'
-                    variant='dark'
-                    autoComplete='current-password'
-                    onChange={onInputChangeHandler}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor='confirm-password'
-                  className='block text-sm font-medium text-gray-200'
-                >
-                  Confirm Password
-                </label>
-                <div className='mt-1'>
-                  <Input
-                    id='confirmPassword'
-                    name='confirmPassword'
-                    type='password'
-                    variant='dark'
-                    autoComplete='current-password'
-                    onChange={onInputChangeHandler}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <Button
-                  text={registering ? 'Signin Up..' : 'Sign Up'}
-                  variant='success'
-                  onClick={handleSubmit}
+                <Input
+                  id="username"
+                  name="username"
+                  type="text"
+                  variant="dark"
+                  onChange={onInputChangeHandler}
                 />
               </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email">Email address</label>
+              <div>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  variant="dark"
+                  autoComplete="email"
+                  onChange={onInputChangeHandler}
+                />
+              </div>
+              <p className="hint-text">
+                Only accepting Gmail, Yahoo and Outlook emails
+              </p>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <div>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  variant="dark"
+                  autoComplete="current-password"
+                  onChange={onInputChangeHandler}
+                />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="confirm-password">Confirm Password</label>
+              <div>
+                <Input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  variant="dark"
+                  autoComplete="current-password"
+                  onChange={onInputChangeHandler}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Button
+                text={registering ? "Signin Up.." : "Sign Up"}
+                variant="success"
+                onClick={handleSubmit}
+              />
             </div>
           </div>
         </div>
