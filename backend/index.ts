@@ -9,7 +9,11 @@ dotenv.config();
 
 const app = express();
 const port = 3001;
-mongoose.connect(process.env.DB_URL as string);
+mongoose
+  .connect(process.env.DB_URL as string, { dbName: "todo-mern-app" })
+  .then(() => {
+    console.log("Connected to DB:", mongoose.connection.db?.databaseName);
+  });
 
 app.use((req, res, next) => {
   console.log("Received request:", req.method, req.url);
@@ -21,7 +25,7 @@ app.use(
   cors({
     origin: [process.env.FRONTEND_URL as string], //or origin: [process.env.FRONTEND_URL as string, 'http://localhost:5173/'],
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
